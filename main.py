@@ -7,6 +7,11 @@ from typing import List, Optional
 import json
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_DIR = os.path.join(BASE_DIR, "static")
+TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
+DATA_FILE = os.path.join(BASE_DIR, "data.json")
+
 app = FastAPI(title="Job Application Tracker API")
 
 app.add_middleware(
@@ -17,7 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DATA_FILE = "data.json"
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 class JobCreate(BaseModel):
@@ -50,12 +55,9 @@ def save_jobs(jobs: List[dict]) -> None:
         json.dump(jobs, f, ensure_ascii=False, indent=2)
 
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-
 @app.get("/")
 def read_index():
-    return FileResponse("templates/index.html")
+    return FileResponse(os.path.join(TEMPLATES_DIR, "index.html"))
 
 
 @app.get("/jobs", response_model=List[Job])
