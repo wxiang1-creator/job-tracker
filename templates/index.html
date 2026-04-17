@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>求职申请管理看板</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div>
+        <h1>求职申请管理看板</h1>
+        <p>统一管理投递岗位、截止日期、材料状态与面试进度</p>
+      </div>
+      <div class="hero-badge">Job Tracker</div>
+    </header>
+
+    <section class="stats">
+      <div class="stat-card">
+        <h3>总申请数</h3>
+        <p id="totalCount">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>已投递</h3>
+        <p id="appliedCount">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>面试中</h3>
+        <p id="interviewCount">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Offer</h3>
+        <p id="offerCount">0</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>申请进度</h2>
+        <span id="progressText">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+    </section>
+
+    <section class="main-grid">
+      <div class="panel form-panel">
+        <h2>新增申请</h2>
+        <form id="jobForm">
+          <div class="form-row">
+            <div>
+              <label>公司名</label>
+              <input type="text" id="company" placeholder="例如：美团" required />
+            </div>
+            <div>
+              <label>岗位名</label>
+              <input type="text" id="position" placeholder="例如：产品经理实习生" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div>
+              <label>投递日期</label>
+              <input type="date" id="appliedDate" required />
+            </div>
+            <div>
+              <label>截止日期</label>
+              <input type="date" id="deadline" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div>
+              <label>当前状态</label>
+              <select id="status" required>
+                <option value="已收藏">已收藏</option>
+                <option value="已投递">已投递</option>
+                <option value="笔试">笔试</option>
+                <option value="面试中">面试中</option>
+                <option value="Offer">Offer</option>
+                <option value="已淘汰">已淘汰</option>
+              </select>
+            </div>
+            <div>
+              <label>面试时间</label>
+              <input type="datetime-local" id="interviewTime" />
+            </div>
+          </div>
+
+          <div>
+            <label>备注</label>
+            <textarea id="notes" rows="4" placeholder="例如：需要补充简历、作品集、笔试时间等"></textarea>
+          </div>
+
+          <button type="submit" class="primary-btn">添加申请</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="list-header">
+          <h2>申请列表</h2>
+          <select id="filterStatus">
+            <option value="全部">全部状态</option>
+            <option value="已收藏">已收藏</option>
+            <option value="已投递">已投递</option>
+            <option value="笔试">笔试</option>
+            <option value="面试中">面试中</option>
+            <option value="Offer">Offer</option>
+            <option value="已淘汰">已淘汰</option>
+          </select>
+        </div>
+
+        <div id="jobList" class="job-list"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
